@@ -1,0 +1,208 @@
+servease-final/
+│
+├── __tests__/
+│   └── api/
+│       ├── bookings.test.ts
+│       ├── reviews.test.ts
+│       └── services.test.ts
+│
+├── app/
+│   ├── about/
+│   │   └── page.tsx
+│   │
+│   ├── api/
+│   │   ├── auth/
+│   │   │   ├── login/
+│   │   │   │   └── route.ts
+│   │   │   ├── me/
+│   │   │   │   └── route.ts
+│   │   │   └── signup/
+│   │   │       └── route.ts
+│   │   │
+│   │   ├── bookings/
+│   │   │   ├── [id]/
+│   │   │   │   └── route.ts
+│   │   │   └── route.ts
+│   │   │
+│   │   ├── provider/
+│   │   │   ├── notifications/
+│   │   │   │   ├── [id]/
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── route.ts
+│   │   │   ├── profile/
+│   │   │   │   └── route.ts
+│   │   │   └── stats/
+│   │   │       └── route.ts
+│   │   │
+│   │   ├── reviews/
+│   │   │   ├── [id]/
+│   │   │   │   └── route.ts
+│   │   │   └── route.ts
+│   │   │
+│   │   ├── services/
+│   │   │   ├── [id]/
+│   │   │   │   └── route.ts
+│   │   │   └── route.ts
+│   │   │
+│   │   └── upload/
+│   │       └── route.ts
+│   │
+│   ├── bookings/
+│   │   └── page.tsx
+│   │
+│   ├── login/
+│   │   └── page.tsx
+│   │
+│   ├── profile/
+│   │   └── page.tsx
+│   │
+│   ├── provider/
+│   │   ├── bookings/
+│   │   │   └── page.tsx
+│   │   ├── dashboard/
+│   │   │   └── page.tsx
+│   │   ├── profile/
+│   │   │   └── page.tsx
+│   │   └── services/
+│   │       ├── [id]/
+│   │       │   └── edit/
+│   │       │       └── page.tsx
+│   │       ├── new/
+│   │       │   └── page.tsx
+│   │       └── page.tsx
+│   │
+│   ├── services/
+│   │   ├── [id]/
+│   │   │   └── page.tsx
+│   │   ├── loading.tsx
+│   │   └── page.tsx
+│   │
+│   ├── signup/
+│   │   └── page.tsx
+│   │
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── not-found.tsx
+│   ├── page.tsx
+│   └── providers.tsx
+│
+├── components/
+│   ├── ui/
+│   │   ├── accordion.tsx
+│   │   ├── alert-dialog.tsx
+│   │   ├── alert.tsx
+│   │   ├── aspect-ratio.tsx
+│   │   ├── avatar.tsx
+│   │   ├── badge.tsx
+│   │   ├── breadcrumb.tsx
+│   │   ├── button-group.tsx
+│   │   ├── button.tsx
+│   │   ├── calendar.tsx
+│   │   ├── card.tsx
+│   │   ├── carousel.tsx
+│   │   ├── chart.tsx
+│   │   ├── checkbox.tsx
+│   │   ├── collapsible.tsx
+│   │   ├── command.tsx
+│   │   ├── context-menu.tsx
+│   │   ├── dialog.tsx
+│   │   ├── drawer.tsx
+│   │   ├── dropdown-menu.tsx
+│   │   ├── empty.tsx
+│   │   ├── field.tsx
+│   │   ├── form.tsx
+│   │   ├── hover-card.tsx
+│   │   ├── input-group.tsx
+│   │   ├── input-otp.tsx
+│   │   ├── input.tsx
+│   │   ├── item.tsx
+│   │   ├── kbd.tsx
+│   │   ├── label.tsx
+│   │   ├── menubar.tsx
+│   │   ├── navigation-menu.tsx
+│   │   ├── pagination.tsx
+│   │   ├── popover.tsx
+│   │   ├── progress.tsx
+│   │   ├── radio-group.tsx
+│   │   ├── resizable.tsx
+│   │   ├── scroll-area.tsx
+│   │   ├── select.tsx
+│   │   ├── separator.tsx
+│   │   ├── sheet.tsx
+│   │   ├── sidebar.tsx
+│   │   ├── skeleton.tsx
+│   │   ├── slider.tsx
+│   │   ├── sonner.tsx
+│   │   ├── spinner.tsx
+│   │   ├── switch.tsx
+│   │   ├── table.tsx
+│   │   ├── tabs.tsx
+│   │   ├── textarea.tsx
+│   │   ├── toast.tsx
+│   │   ├── toaster.tsx
+│   │   ├── toggle-group.tsx
+│   │   ├── toggle.tsx
+│   │   └── tooltip.tsx
+│   │
+│   ├── booking-modal.tsx
+│   ├── bookings-table.tsx
+│   ├── date-picker.tsx
+│   ├── footer.tsx
+│   ├── form-input.tsx
+│   ├── map-container.tsx
+│   ├── nav-bar.tsx
+│   ├── notifications-center.tsx
+│   ├── protected-route.tsx
+│   ├── provider-onboarding-form.tsx
+│   ├── rating-stars.tsx
+│   ├── service-card.tsx
+│   ├── service-form.tsx
+│   ├── theme-provider.tsx
+│   ├── toast-container.tsx
+│   └── toast.tsx
+│
+├── hooks/
+│   ├── use-mobile.ts
+│   └── use-toast.ts
+│
+├── lib/
+│   ├── api-client.ts
+│   ├── auth-middleware.ts
+│   ├── db.ts
+│   ├── jwt.ts
+│   ├── store.ts
+│   ├── utils.ts
+│   └── validation.ts
+│
+├── public/
+│   ├── placeholder-logo.png
+│   ├── placeholder-logo.svg
+│   ├── placeholder-user.jpg
+│   ├── placeholder.jpg
+│   ├── placeholder.svg
+│   └── plumbing-service-call.png
+│
+├── scripts/
+│   ├── 00-create-schema.sql
+│   └── 01-seed-data.sql
+│
+├── node_modules/          (dependencies - excluded from detailed view)
+│
+├── API_TESTING_GUIDE.md
+├── AUTH_SETUP.md
+├── components.json
+├── FOLDER_TREE.txt
+├── next-env.d.ts
+├── next.config.mjs
+├── package.json
+├── pnpm-lock.yaml
+├── postcss.config.mjs
+├── postman-collection.json
+├── PROVIDER_API_REFERENCE.md
+├── PROVIDER_PORTAL.md
+├── replit.md
+├── TESTING.md
+└── tsconfig.json
+
+
+

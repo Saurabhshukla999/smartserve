@@ -8,7 +8,7 @@ const geistSans = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "EasyServe - Local Service Network",
+  title: "SmartServe - Local Service Network",
   description: "Find and book trusted services from your personal network",
 }
 

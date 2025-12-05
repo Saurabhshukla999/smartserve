@@ -48,9 +48,20 @@ export default function ProviderDashboard() {
 
   const fetchDashboardData = async () => {
     try {
+      const token = localStorage.getItem("authToken") || localStorage.getItem("token")
+      if (!token) {
+        console.error("No auth token found while fetching provider dashboard data")
+        setIsLoading(false)
+        return
+      }
+
       const [bookingsRes, statsRes] = await Promise.all([
-        fetch(`/api/bookings?providerId=${user?.id}`),
-        fetch(`/api/provider/stats`),
+        fetch(`/api/bookings?providerId=${user?.id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch(`/api/provider/stats`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
       ])
 
       if (bookingsRes.ok) {
@@ -99,7 +110,13 @@ export default function ProviderDashboard() {
     {
       icon: DollarSign,
       label: "Total Earnings",
-      value: `$${stats.totalEarnings.toFixed(2)}`,
+      value: (() => {
+        const earningsNum =
+          typeof stats.totalEarnings === "number"
+            ? stats.totalEarnings
+            : Number.parseFloat(String(stats.totalEarnings)) || 0
+        return `$${earningsNum.toFixed(2)}`
+      })(),
       change: "+12% this month",
     },
     {

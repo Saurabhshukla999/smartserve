@@ -82,6 +82,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
           b.*,
           s.title as "serviceTitle",
           s.price,
+          s."providerId",
           u.name as "userName",
           u.email as "userEmail",
           p.name as "providerName"

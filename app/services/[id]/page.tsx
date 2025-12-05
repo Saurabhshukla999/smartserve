@@ -46,36 +46,65 @@ export default function ServiceDetailsPage() {
 
   useEffect(() => {
     const fetchService = async () => {
+      setLoading(true)
+      setError(null)
+      
       try {
-        const response = await fetch(`/api/services/${params.id}`)
-        if (!response.ok) {
-          throw new Error("Service not found")
+        if (!params?.id) {
+          throw new Error("Service ID is missing")
         }
+
+        const response = await fetch(`/api/services/${params.id}`)
         const data = await response.json()
-        setService(data)
+        
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to fetch service details")
+        }
+
+        // Ensure reviews array exists
+        const serviceData = {
+          ...data,
+          reviews: data.reviews || []
+        }
+        
+        setService(serviceData)
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to load service")
+        console.error('Error fetching service:', err)
+        setError(err instanceof Error ? err.message : "An unexpected error occurred")
       } finally {
         setLoading(false)
       }
     }
 
-    if (params.id) {
-      fetchService()
-    }
-  }, [params.id])
+    fetchService()
+  }, [params?.id])
 
   if (loading) {
     return (
       <>
         <NavBar isAuthenticated={isAuthenticated} />
-        <main className="min-h-screen">
-          <div className="container-max py-12">
-            <div className="text-center">
-              <p className="text-muted-foreground">Loading service details...</p>
+        <div className="min-h-screen">
+          <div className="container-max py-16">
+            <div className="animate-pulse space-y-6">
+              <div className="h-10 bg-gray-200 rounded w-3/4 max-w-md"></div>
+              <div className="h-6 bg-gray-200 rounded w-1/2 max-w-xs"></div>
+              
+              <div className="grid md:grid-cols-2 gap-8 mt-8">
+                <div className="space-y-4">
+                  <div className="h-64 bg-gray-200 rounded-lg"></div>
+                  <div className="h-4 bg-gray-200 rounded w-full"></div>
+                  <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                  <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                </div>
+                <div className="space-y-4">
+                  <div className="h-12 bg-gray-200 rounded w-1/2"></div>
+                  <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+                  <div className="h-12 bg-gray-200 rounded-lg w-full max-w-xs"></div>
+                </div>
+              </div>
             </div>
           </div>
-        </main>
+        </div>
         <Footer />
       </>
     )
@@ -85,13 +114,33 @@ export default function ServiceDetailsPage() {
     return (
       <>
         <NavBar isAuthenticated={isAuthenticated} />
-        <main className="min-h-screen">
-          <div className="container-max py-12">
-            <div className="text-center">
-              <p className="text-muted-foreground">{error || "Service not found"}</p>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="container-max py-16 text-center">
+            <div className="max-w-md mx-auto">
+              <div className="text-5xl mb-4">⚠️</div>
+              <h1 className="text-2xl font-bold text-red-600 mb-4">
+                {error?.includes('not found') ? 'Service Not Found' : 'Error Loading Service'}
+              </h1>
+              <p className="text-gray-600 mb-6">
+                {error || 'The service you are looking for could not be found.'}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  href="/services"
+                  className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition"
+                >
+                  Browse All Services
+                </Link>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+                >
+                  Try Again
+                </button>
+              </div>
             </div>
           </div>
-        </main>
+        </div>
         <Footer />
       </>
     )

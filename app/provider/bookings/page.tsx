@@ -36,10 +36,24 @@ export default function ProviderBookingsPage() {
 
   const fetchBookings = async () => {
     try {
-      const response = await fetch(`/api/bookings?providerId=${user?.id}`)
+      const token = localStorage.getItem("authToken") || localStorage.getItem("token")
+      if (!token) {
+        console.error("No auth token found while fetching provider bookings")
+        setBookings([])
+        return
+      }
+
+      const response = await fetch(`/api/bookings?providerId=${user?.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
       if (response.ok) {
         const data = await response.json()
         setBookings(data.data || [])
+      } else {
+        console.error("Failed to fetch provider bookings:", await response.text())
       }
     } catch (error) {
       console.error("Failed to fetch bookings:", error)

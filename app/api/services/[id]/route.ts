@@ -4,13 +4,27 @@ import { serviceUpdateSchema } from "@/lib/validation"
 import { authMiddleware } from "@/lib/auth-middleware"
 
 // GET /api/services/:id - Get single service with reviews
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    const { id } = params
-    const serviceId = Number.parseInt(id)
+    // In this Next.js version, params is a Promise and must be awaited
+    const { id } = await params
 
+    if (!id) {
+      return NextResponse.json(
+        { error: "Service ID is required" },
+        { status: 400 }
+      )
+    }
+
+    const serviceId = Number.parseInt(id)
     if (isNaN(serviceId)) {
-      return NextResponse.json({ error: "Invalid service ID" }, { status: 400 })
+      return NextResponse.json(
+        { error: "Invalid service ID format" },
+        { status: 400 }
+      )
     }
 
     const serviceSql = `
@@ -28,8 +42,11 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     `
 
     const services = await query(serviceSql, [serviceId])
-    if (services.length === 0) {
-      return NextResponse.json({ error: "Service not found" }, { status: 404 })
+    if (!services || services.length === 0) {
+      return NextResponse.json(
+        { error: `Service with ID ${serviceId} not found` },
+        { status: 404 }
+      )
     }
 
     const reviewsSql = `
@@ -44,24 +61,29 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 
     const reviews = await query(reviewsSql, [serviceId])
 
-    return NextResponse.json({
+    const serviceData = {
       ...services[0],
-      reviews,
-    })
+      reviews: reviews || [],
+    }
+
+    return NextResponse.json(serviceData)
   } catch (error) {
-    console.error("[v0] GET /api/services/:id error:", error)
+    console.error("Error in GET /api/services/[id]:", error)
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Failed to fetch service" },
-      { status: 500 },
+      { 
+        error: "Failed to fetch service details",
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
+      { status: 500 }
     )
   }
 }
 
 // PUT /api/services/:id - Update service (provider only)
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   return authMiddleware(async (req, user) => {
     try {
-      const { id } = params
+      const { id } = await params
       const serviceId = Number.parseInt(id)
 
       if (isNaN(serviceId)) {
@@ -146,10 +168,10 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 }
 
 // DELETE /api/services/:id - Delete service (provider only)
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   return authMiddleware(async (req, user) => {
     try {
-      const { id } = params
+      const { id } = await params
       const serviceId = Number.parseInt(id)
 
       if (isNaN(serviceId)) {

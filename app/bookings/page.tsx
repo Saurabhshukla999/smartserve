@@ -32,9 +32,14 @@ export default function BookingsPage() {
       if (!user) return
 
       try {
+        const token = localStorage.getItem("authToken") || localStorage.getItem("token")
+        if (!token) {
+          throw new Error("Authentication token not found. Please log in again.")
+        }
+
         const response = await fetch(`/api/bookings?userId=${user.id}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         })
         

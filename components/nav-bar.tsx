@@ -30,7 +30,7 @@ export function NavBar({ isAuthenticated = false, userRole = "user" }: NavBarPro
     <nav className="border-b border-border bg-background sticky top-0 z-50">
       <div className="container-max flex items-center justify-between py-4">
         <Link href="/" className="text-xl font-bold text-primary">
-          EasyServe
+          Smartserve
         </Link>
 
         {/* Desktop Menu */}

@@ -1,6 +1,6 @@
-# Servease (Smart Service Marketplace)
+# Smartserve (Smart Service Marketplace)
 
-Servease is a full‑stack service marketplace built with Next.js App Router. It connects **customers** with **local service providers** (plumbers, electricians, etc.) and includes booking, reviews, and separate dashboards for users and providers.
+Smartserve is a full‑stack service marketplace built with Next.js App Router. It connects **customers** with **local service providers** (plumbers, electricians, etc.) and includes booking, reviews, and separate dashboards for users and providers.
 
 ---
 
